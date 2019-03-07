@@ -1,0 +1,198 @@
+﻿@using GameStore.Models.Enums
+@model GameStore.WEB.Models.ViewModel.Game.GamesShowcaseViewModel
+
+@{
+    ViewBag.Title = "GetAllGames";
+}
+
+<h2>Games</h2>
+<h4>selected @Model.GameCount goods</h4>
+<hr />
+@if (Model.Games != null)
+{
+    <div>
+        @foreach (var game in Model.Games)
+        {
+            <div class="game">
+                <a href="game/@game.Key">
+                    <div class="img-game-card"></div>
+                    <p class="game-price">@game.Price.ToString()$</p>
+                    <p class="game-title">@game.Name</p>
+                    @using (Html.BeginForm("AddToBasket", "Order", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("gamekey", game.Key)
+                        ;
+                        <input type="submit" value="Buy" class="btn btn-success btn-block"/>
+                    }
+                </a>
+            </div>
+        }
+
+    </div>
+
+
+    <div class="pagination-container">
+        <div class="pagination">
+            @if (Model.GameFilterCriteria.ItemsPerPage != ItemsPerPage.All)
+            {
+                for (int i = 0; i * (int) Model.GameFilterCriteria.ItemsPerPage < Model.GameCount; i++)
+                {
+                    var number = i + 1;
+                    var skip = i * (int) Model.GameFilterCriteria.ItemsPerPage;
+                    <button type="submit" form="filterForm" class="page-button" onclick="OpenPage('@skip.ToString()')">@number.ToString()</button>
+                }
+            }
+        </div>
+    </div>
+}
+
+
+
+
+@section filters
+{
+
+    <div class="filtration">
+        @using (@Html.BeginForm("GetAllGames", "Game", FormMethod.Get,
+            new { id = "filterForm" }))
+        {
+
+            <div class="filtration-control">
+                <p class="filtration-title">Filtration</p>
+                @Html.HiddenFor(model => model.GameFilterCriteria.Skip)
+
+                @Html.LabelFor(model => model.GameFilterCriteria.ItemsPerPage, htmlAttributes: new { @class = "filtration-label" })
+                @Html.DropDownListFor(model => model.GameFilterCriteria.ItemsPerPage, Model.ItemsPerPageVariants, htmlAttributes: new { @class = "chzn-select form-control", style = "margin-left: 2%" })
+                
+                <div>
+                @Html.LabelFor(model => model.GameFilterCriteria.GameName, htmlAttributes: new { @class = "filtration-label" })
+                @Html.EditorFor(model => model.GameFilterCriteria.GameName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GameFilterCriteria.GameName, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.GameFilterCriteria.Genres, htmlAttributes: new { @class = "filtration-label" })
+                @Html.ListBoxFor(model => model.GameFilterCriteria.Genres, new MultiSelectList(Model.Genres), new { @class = "chzn-select form-control", style = "margin-left: 2%" })
+
+                @Html.LabelFor(model => model.GameFilterCriteria.PlatformTypes, htmlAttributes: new { @class = "filtration-label" })
+                @Html.ListBoxFor(model => model.GameFilterCriteria.PlatformTypes, new MultiSelectList(Model.PlatformTypes), new { @class = "chzn-select form-control " })
+
+                @Html.LabelFor(model => model.GameFilterCriteria.Publishers, htmlAttributes: new { @class = "filtration-label" })
+                @Html.ListBoxFor(model => model.GameFilterCriteria.Publishers, new MultiSelectList(Model.Publishers), new { @class = "chzn-select form-control " })
+
+
+
+                @Html.LabelFor(model => model.GameFilterCriteria.GamePublished, htmlAttributes: new { @class = "filtration-label" })
+                <div class="filtration-checkbox">
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.GamePublished, GamePublished.LastMonth)
+                    @Html.Label("last week")
+                    <br />
+
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.GamePublished, GamePublished.LastMonth)
+                    @Html.Label("last month")
+                    <br />
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.GamePublished, GamePublished.LastYear)
+                    @Html.Label("last year")
+                    <br />
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.GamePublished, GamePublished.TwoYears)
+                    @Html.Label("2 years")
+                    <br />
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.GamePublished, GamePublished.ThreeYears)
+                    @Html.Label("3 years")
+                    <br />
+                </div>
+
+
+
+                @Html.LabelFor(model => model.GameFilterCriteria.MinPrice, new { @class = "filtration-label" })
+                @Html.EditorFor(model => model.GameFilterCriteria.MinPrice,
+                         new { htmlAttributes = new { @class = "form-control", type = "number", @min = "1", @max = int.MaxValue.ToString(), @step = "1" } })
+
+                @Html.LabelFor(model => model.GameFilterCriteria.MaxPrice, new { @class = "filtration-label" })
+                @Html.EditorFor(model => model.GameFilterCriteria.MaxPrice,
+                         new { htmlAttributes = new { @class = "form-control", type = "number", @min = "1", @max = int.MaxValue.ToString(), @step = "1" } })
+
+                @Html.LabelFor(model => model.GameFilterCriteria.GamePublished, htmlAttributes: new { @class = "filtration-label" })
+                <div class="filtration-checkbox">
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.SortCriterion, SortFilter.Popular)
+                    @Html.Label("popular")
+                    <br />
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.SortCriterion, SortFilter.New)
+                    @Html.Label("new")
+                    <br />
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.SortCriterion, SortFilter.Commented)
+                    @Html.Label("most commented")
+                    <br />
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.SortCriterion, SortFilter.PriceAscending)
+                    @Html.Label("price ascending")
+                    <br />
+
+                    @Html.RadioButtonFor(model => model.GameFilterCriteria.SortCriterion, SortFilter.PriceDescending)
+                    @Html.Label("price descending")
+                    <br />
+
+                </div>
+
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Apply" onclick="OpenPage('0')" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+
+
+
+    </div>
+}
+
+@section scripts
+{
+    <script>
+        function OpenPage(skip) {
+            document.getElementById("FilterCriteria_Skip").setAttribute("value", skip);
+            swapPrice();
+        }
+
+        function swapPrice() {
+            var minPrice = document.getElementById("FilterCriteria_MinPrice");
+            var maxPrice = document.getElementById("FilterCriteria_MaxPrice");
+            if (minPrice.value !== "" && maxPrice.value !== "") {
+                if (+minPrice.value > +maxPrice.value) {
+
+                    var max = minPrice.value;
+                    var min = maxPrice.value;
+
+                    minPrice.value = min;
+                    maxPrice.value = max;
+                }
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.chzn-select').chosen();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#normalDropDown').chosen();
+        });
+    </script>
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+

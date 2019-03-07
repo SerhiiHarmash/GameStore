@@ -1,0 +1,196 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #e6ecf0;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.bg-red {
+    background-color: red;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.game {
+    background-color: #fff;
+    display: inline-block;
+    vertical-align: top;
+    width: 330px;
+    height: 360px;
+    margin-top: 20px;
+    overflow: hidden;
+    padding: 15px;
+    margin-right: 20px;
+    box-shadow: 0 0 5px 1px #cecece;
+    text-align: center;
+}
+
+    .game .game-text {
+        max-height: 105px;
+        overflow: hidden;
+        width: 310px;
+    }
+
+.img-game-card {
+    width: 200px;
+    height: 200px;
+    background-color: #808080;
+    margin-left: 50px;
+}
+
+.game:hover .game-title {
+    color: #32b5ae;
+}
+
+.game a > p {
+    margin-bottom: 7px;
+}
+
+.game-title {
+    font-size: 20px;
+}
+
+.game-price {
+    font-size: 15px;
+    color: red;
+    margin-bottom: 5px;
+}
+
+/*----------------------------------------------------------------------------------------*/
+.comment-container {
+    display: block;
+}
+.comment-child-container {
+    display: block;     
+    margin-left: 40px;
+      
+}
+.comment {
+    display: block;
+    border-radius: 3px;
+    padding: 15px 0 15px 0;
+    margin-bottom: 10px;
+    background-color: #fff;
+    overflow: hidden;     
+    box-shadow: 0 0 5px 1px #cecece;  
+}
+.comment-id {
+    display: inline-block;
+}
+.comment-author {
+    display: inline-block;
+    margin-left: 5px;
+}
+.comment-body {
+    margin-left: 40px;
+}
+
+.btn-position {
+    margin-left: 300px;
+}
+/*---------------------------------------------------------------------------------------------------------*/
+.terminal-result {
+    background-color: #fff;
+    box-shadow: 0 0 5px 1px #cecece;
+    margin-top: 20px; 
+    border-radius: 20px;
+    margin: 20px auto;
+    width: 50%;
+}
+
+.terminal-result h2 {
+    color: red;
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    font-size: 25px
+}
+
+    .terminal-result .info {
+        margin: 10px;
+        padding-bottom: 20px;
+    }
+
+.terminal-result p {
+    font-size: 18px;
+    text-align: center;
+}
+
+
+.comment-link {
+    background: none;
+    color: #1e90ff;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 0px;
+    padding: 0;
+}
+.comment-link:hover {
+    text-decoration: underline;
+    color: #32b5ae;
+}
+/*----------------------------------------------------------filteer-------------------------------------------*/
+.filtration {
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0 0 5px 1px #cecece;
+    width: 235px;
+    padding-bottom: 30px;
+    float: left;
+    margin-left: 30px;
+    margin-top: 115px;
+    box-shadow: 0 0 5px 1px #cecece;
+}
+
+.filtration-title {
+    font-size: 20px;
+    font-family: sans-serif;
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 0;
+}
+.filtration-checkbox {
+    margin-left: 20px;
+}
+.filtration-label {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.filtration-control {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+/*------------------------------pugination-----------------------------------------*/
+
+
+.pagination {
+    margin: auto;
+}
+
+.page-button {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #1e90ff;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+}
+
+

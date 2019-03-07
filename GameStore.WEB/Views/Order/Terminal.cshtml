@@ -1,0 +1,15 @@
+﻿@model GameStore.WEB.Models.ViewModel.TerminalViewModel
+
+@{
+    ViewBag.Title = "Terminal";
+}
+<div class="terminal-result ">
+    <h2>IBox terminal</h2>
+    <div class="info">
+        <p>Order Id:</p>
+        <P> @Model.OrderId.ToString()</P>
+        <p>Customer Id:</p>
+        <P> @Model.CustomerId.ToString()</P>
+        <p>Total price: @Model.TotalPrice</p>
+    </div>
+</div>

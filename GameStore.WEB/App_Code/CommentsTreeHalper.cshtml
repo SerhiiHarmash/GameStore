@@ -1,0 +1,87 @@
+﻿@using GameStore.WEB.Models.ViewModel
+
+
+@helper GetTreeView(IEnumerable<CommentViewModel> comments, string parentId)
+{
+    foreach (var comment in comments.Where(a => a.ParentCommentId == parentId))
+    {
+        <div class="comment-child-container">
+            <div class="comment">
+                <p class="comment-author lead">
+                    <span class="">Name: </span>
+                    <span class="text-success">@comment.Name</span>
+                </p>
+
+                @if (comment.IsQuote)
+                {
+                    if (comment.ParentComment.IsDeleted)
+                    {
+                        <blockquote class="text-danger">The quoted comment has been deleted </blockquote>
+                    }
+                    else
+                    {
+                        <blockquote>@comment.ParentComment.Body </blockquote>
+
+                    }
+                }
+
+                @if (comment.IsDeleted)
+                {
+                    <p class="comment-body text-danger">The comment has been deleted</p>
+                }
+
+                else
+                {
+                    <p class="comment-body">@comment.Body</p>
+                }
+
+
+                @*@if (comment.ParentComment.IsDeleted)
+                    {
+                        <blockquote class="text-danger">The quoted comment has been deleted </blockquote>
+                    }
+                    else
+                    {
+                        <blockquote >@comment.ParentComment.Body </blockquote>
+
+                    }
+
+                    @if (comment.IsDeleted)
+                    {
+                        <p class="comment-body text-danger">The comment has been deleted</p>
+                    }
+                    else
+                    {
+                        <p class="comment-body">@comment.Body</p>
+                    }*@
+
+                <span class="comment-author">
+                    <a href="#" class="comment-link" onclick="addInfoForReply('@comment.Id', '@comment.Name','false')">Reply</a>
+                    <a href="#" class="comment-link" onclick="addInfoForReply('@comment.Id', '@comment.Name', 'true')">Quote</a>
+
+                </span>
+
+                <div style="display: inline-block">
+                    <form method="post" id="form_@comment.Id" action="/Comment/RemoveComment">
+                        <input id="gameId" name="gameId" type="hidden" value="@comment.GameId">
+                        <input id="commentId" name="commentId" type="hidden" value="@comment.Id">
+                        <input type="submit" onclick="deleteComment('form_@comment.Id')" value="Remove" class="comment-link" />
+                        <a href="/Ban/Ban?userId=@comment.UserId" class="comment-link">Ban</a>
+
+
+                    </form>
+                </div>
+            </div>
+
+            @{var submenu = comments.Count(a => a.ParentCommentId == comment.Id);}
+
+            @if (submenu > 0)
+            {
+                @GetTreeView(comments, comment.Id)
+            }
+        </div>
+
+
+
+    }
+}

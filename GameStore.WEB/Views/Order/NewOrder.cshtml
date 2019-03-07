@@ -1,0 +1,69 @@
+﻿@using GameStore.Models.Enums
+@model GameStore.WEB.Models.ViewModel.OrderViewModel
+
+@{
+    ViewBag.Title = "Order";
+}
+
+<h2>Order details</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1; }
+            @foreach (var product in Model.OrdersDetails)
+            {
+                <tr>
+                    <th>@i</th>
+                    <td>@product.ProductKey</td>
+                    <td>@product.Quantity</td>
+                    <td>@product.OrderDetailTotal</td>
+                </tr>
+                i++;
+            }
+            <tr>
+                <td colspan="3" style="text-align: center">Total price</td>
+                <td class="success">@Model.TotalPrice.ToString()</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<h2>Payment methods</h2>
+<br />
+<div class="table-responsive">
+    <table class="table ">
+        <tr>
+            <td>
+                <img style="height: 200px" src="~/Images/bank-icon.png" />
+            </td>
+            <td>Bank</td>
+            <td>You can pay via a bank</td>
+            <td>@Html.ActionLink("Buy", "Bay", "Order", new { paymentType = PaymentType.PayThroughBank }, new { @class = "btn btn-success" })</td>
+        </tr>
+        <tr>
+            <td>
+                <img style="height: 200px" src="~/Images/terminal.png" />
+            </td>
+            <td>IBox terminal</td>
+            <td>You can pay via a IBox terminal </td>
+            <td>@Html.ActionLink("Buy", "Bay", "Order", new { paymentType = PaymentType.PayThroughTerminal }, new { @class = "btn btn-success" })</td>
+        </tr>
+        <tr>
+            <td>
+                <img style="height: 200px" src="~/Images/visa-icon.png" />
+            </td>
+            <td>Bank card Visa</td>
+            <td>You can pay via a bank card Visa</td>
+            <td>@Html.ActionLink("Buy", "Bay", "Order", new { paymentType = PaymentType.PayThroughVisa }, new { @class = "btn btn-success" })</td>
+        </tr>
+    </table>
+</div>

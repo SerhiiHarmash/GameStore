@@ -1,0 +1,37 @@
+﻿@model GameStore.WEB.Models.ViewModel.PublisherViewModel
+
+@{
+    ViewBag.Title = "Publisher";
+}
+
+<h2>Publisher</h2>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomePage)
+        </dt>
+
+        <dd>
+            <a href="@Model.HomePage">@Model.HomePage</a>
+        </dd>
+
+    </dl>
+</div>
+

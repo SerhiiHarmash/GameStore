@@ -1,0 +1,65 @@
+﻿@model GameStore.WEB.Models.ViewModel.OrderViewModel
+
+@{
+    ViewBag.Title = "Order";
+}
+
+<h2>Order</h2>
+<hr />
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Id)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Id)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.CustomerId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CustomerId)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.OrderDate)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.OrderDate)
+    </dd>
+</dl>
+<hr/>
+
+<h3>Order details</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1; }
+            @foreach (var orderDetails in Model.OrdersDetails)
+            {
+                <tr>
+                    <th>@i</th>
+                    <td>@orderDetails.ProductName</td>
+                    <td>@orderDetails.Quantity</td>
+                    <td>@orderDetails.OrderDetailTotal</td>
+                </tr>
+                i++;
+            }
+            <tr>
+                <td colspan="3" style="text-align: center">Total price</td>
+                <td class="success">@Model.TotalPrice.ToString()</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

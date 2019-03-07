@@ -1,0 +1,99 @@
+﻿@model GameStore.WEB.Models.ViewModel.OrderViewModel
+
+@{
+    ViewBag.Title = "OpenBasket";
+}
+
+<h2>Basket</h2>
+@if (Model == null)
+{
+    <h3>Basket is empty</h3>
+}
+
+@if (Model != null)
+{
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OrderDate)
+            </dd>
+
+            <hr />
+
+            @foreach (var orderDetails in Model.OrdersDetails)
+            {
+                <hr />
+
+                <dt>
+                    @Html.DisplayName("Product")
+                </dt>
+
+                <dd>
+                    <p>@orderDetails.ProductName</p>
+
+                </dd>
+                <dt>
+                    @Html.DisplayName("Quantity")
+                </dt>
+
+                <dd>
+                 
+                        @using (Html.BeginForm("ChangeUnitsProduct", "Order", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.Hidden("orderDetailsId", orderDetails.Id)
+                            @Html.Hidden("productKey", orderDetails.ProductKey)
+
+
+                            <input class="form-control" name="units" type="number" min="1" step="1" value="@orderDetails.Quantity.ToString()" required="required"/>
+                            <br>
+                            <input type="submit" value="Add" class="btn btn-default"/>
+
+                        }
+                    
+                        @using (Html.BeginForm("DeleteOrderDetails", "Order", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.Hidden("orderDetailsId", orderDetails.Id)
+                            <br>
+                            <input type="submit" value="Delete" class="btn btn-default" />
+
+                        }
+                    
+                </dd>
+                <dt>
+                    @Html.DisplayName("OrderDetailTotal")
+                </dt>
+
+                <dd>
+                    <p>@orderDetails.OrderDetailTotal.ToString()</p>
+
+                </dd>
+              
+
+
+            }
+            <hr />
+            <dt>
+
+                @Html.ActionLink("Make order", "MakeOrder", "Order", null, new { @class = "btn btn-success" })
+            </dt>
+
+            <dd>
+               
+                Total price: @Model.TotalPrice
+            </dd>
+
+        </dl>
+    </div>
+}
+

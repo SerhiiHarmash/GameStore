@@ -1,0 +1,88 @@
+﻿@model GameStore.WEB.Models.ViewModel.EditingGameViewModel
+
+@Html.HiddenFor(model => model.Game.ReleaseDate)
+@Html.HiddenFor(model => model.Game.ViewCount)
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Game.Key, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Game.Key, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Game.Key, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Game.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Game.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Game.Name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Game.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Game.Description, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Game.Description, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Game.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Game.Price, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Game.Price, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Game.UnitsInStock, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Game.UnitsInStock, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Game.UnitsInStock, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Game.Discontinued, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <div class="checkbox">
+            @Html.EditorFor(model => model.Game.Discontinued)
+            @Html.ValidationMessageFor(model => model.Game.Discontinued, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Publishers, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(model => model.Game.Publisher,
+            new SelectList(Model.Publishers),
+            new {@class = "chzn-select form-control" })
+        @Html.ValidationMessageFor(model => model.Game.Publisher, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.ListBoxFor(model => model.Game.Genres,
+            new MultiSelectList(Model.Genres),
+            new {@class = "chzn-select form-control " })
+        @Html.ValidationMessageFor(model => model.Game.Genres, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.PlatformTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.ListBoxFor(model => model.Game.PlatformTypes,
+            new MultiSelectList(Model.PlatformTypes),
+            new { @class = "chzn-select form-control " })
+        @Html.ValidationMessageFor(model => model.Game.PlatformTypes, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+

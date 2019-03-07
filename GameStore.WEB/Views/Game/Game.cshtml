@@ -1,0 +1,138 @@
+﻿@model GameStore.WEB.Models.ViewModel.GameViewModel
+
+@{
+    ViewBag.Title = "GetGameByKey";
+}
+
+<h2>@Model.Key</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitsInStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitsInStock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discontinued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlatformTypes)
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var platformType in Model.PlatformTypes)
+                {
+                    <li>@platformType.ToString()</li>
+                }
+            </ul>
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genres)
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var genre in Model.Genres)
+                {
+                    <li>@genre.ToString()</li>
+                }
+            </ul>
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+
+        <dd>
+
+            @Html.ActionLink(Model.Publisher,
+                "GetPublisherByCompanyName", "Publisher",
+                new { CompanyName = Model.Publisher },
+                null)
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViewCount)
+        </dd>
+        <br />
+
+        <dt>
+            @using (Html.BeginForm("AddToBasket", "Order", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("gamekey", Model.Key);
+                <input type="submit" value="Buy" class="btn btn-success btn-block" />
+            }
+        </dt>
+
+        <dd></dd>
+
+    </dl>
+</div>
+
+<div class="container">
+    @Html.ActionLink("Edit game", "UpdateGame", "Game", new { gamekey = Model.Key }, new { @class = "navbar-brand" })
+</div>
+
+<div class="container">
+    @Html.ActionLink("Comments on the game", "GetAllCommentsByGame", "Comment", new { gamekey = Model.Key }, new { @class = "navbar-brand" })
+</div>
+
+<div class="container">
+    @Html.ActionLink("Download games", "DownloadGame", "Game", new { gamekey = Model.Key }, new { @class = "navbar-brand" })
+</div>
+
+
+
+
